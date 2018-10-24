@@ -36,20 +36,19 @@
         }
         mounted() {
             this.deleteTask();
-            this.getOrigin();
             this.getApiClient();
 
         }
 
         deleteTask() {
             this.$apollo.mutate({
-                mutation: gql`mutation tasksDelete ($id: ID!) {
-                    deleteTask (id: $id) {
+                mutation: gql`mutation mutationTask ($id: ID!) {
+                    mutationTask (id: $id) {
                         id
                     }
                 }`,
                 variables: {
-                    id: 'this.task.id',
+                    id: 'id-890',
                 },
 
             }).then((data) => {
@@ -59,31 +58,10 @@
             })
         }
 
-        getOrigin() {
-            this.$apollo.query({
-                query: gql`query tasksAll ($filter: TaskFilter) {
-                    allTasks (filter: $filter) {
-                        id
-                        done
-                        label
-                    }
-                }`,
-                variables: {
-                    filter: 'this.Select'
-                }
-            })
-                .then(res => {
-                    console.log('请求成功', res)
-                })
-                .catch(err => {
-                    console.log('请求失败', err)
-                })
-        }
-
         getApiClient() {
             console.log((<any>this.$apollo.provider).clients);
             (<any>this.$apollo.provider).clients.api.query({
-                query: gql`query tasksAll ($filter: TaskFilter) {
+                query: gql`query queryTask ($filter: TaskFilter) {
                     allTasks (filter: $filter) {
                         id
                         done
@@ -91,7 +69,7 @@
                     }
                 }`,
                 variables: {
-                    filter: 'this.Select'
+                    filter: 'select'
                 }
             }).then((params: any) => {
 
