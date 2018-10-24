@@ -14,7 +14,8 @@
 
 
     // import TASKS_ALL from '../graphql/get/TasksAll.gql'
-    // import TASKS_DELETE from '../graphql/'
+    // const TASKS_ALL = require('../graphql/get/TasksAll.gql');
+    // import TASKS_DELETE from '../graphql/get/TasksAll.gql'
     @Component({
         components: {
             HelloWorld,
@@ -22,7 +23,6 @@
         }
     })
     export default class Home extends Vue {
-
         data() {
             return {
                 cardVal: '我是一个卡片',
@@ -78,12 +78,11 @@
                 .catch(err => {
                     console.log('请求失败', err)
                 })
-
         }
 
         getApiClient() {
-            console.log(this.$apollo.provider.clients.api)
-            this.$apollo.provider.clients.api.query({
+            console.log((<any>this.$apollo.provider).clients);
+            (<any>this.$apollo.provider).clients.api.query({
                 query: gql`query tasksAll ($filter: TaskFilter) {
                     allTasks (filter: $filter) {
                         id
