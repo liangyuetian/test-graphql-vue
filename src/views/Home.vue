@@ -11,9 +11,8 @@
     import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
     import gql from 'graphql-tag';
     import Card from '@/components/card/index.vue';
-
-
-    // import TASKS_ALL from '../graphql/get/TasksAll.gql'
+    // @ts-ignore
+    import TASKS_ALL from '@/graphql/get/TasksAll.gql'
     // const TASKS_ALL = require('../graphql/get/TasksAll.gql');
     // import TASKS_DELETE from '../graphql/get/TasksAll.gql'
     @Component({
@@ -37,6 +36,7 @@
         mounted() {
             this.deleteTask();
             this.getApiClient();
+            console.log(this.$apollo.provider);
 
         }
 
@@ -59,7 +59,6 @@
         }
 
         getApiClient() {
-            console.log((<any>this.$apollo.provider).clients);
             (<any>this.$apollo.provider).clients.api.query({
                 query: gql`query queryTask ($filter: TaskFilter) {
                     allTasks (filter: $filter) {

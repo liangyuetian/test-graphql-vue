@@ -37,6 +37,7 @@ const apolloProvider = new VueApollo({
 			fetchPolicy: 'cache-and-network'
 		}
 	},
+	// { [key: string]: ApolloClient<{}> }
 	clients: {
 		api: apiClient //需要添加请求头
 		// base: baseClient   //不需要添加请求头

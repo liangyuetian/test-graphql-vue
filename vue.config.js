@@ -111,6 +111,17 @@ module.exports = {
 								// options: {
 								// 	name: 'static/media/[name].[hash:8].[ext]'
 								// }
+							},
+							{
+								// Exclude `js` files to keep "css" loader working as it injects
+								// its runtime that would otherwise processed through "file" loader.
+								// Also exclude `html` and `json` extensions so they get processed
+								// by webpacks internal loaders.
+								exclude: [ /\.gql$/ ],
+								loader: require.resolve('file-loader')
+								// options: {
+								// 	name: 'static/media/[name].[hash:8].[ext]'
+								// }
 							}
 						]
 					}
@@ -129,9 +140,9 @@ module.exports = {
 	parallel: require('os').cpus().length > 1, // 构建时开启多进程处理babel编译
 	pluginOptions: {
 		apollo: {
-          enableMocks: true,
-          enableEngine: true
-        }
+			enableMocks: true,
+			enableEngine: true
+		}
 	},
 	pwa: {
 		// 单页插件相关配置 https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
@@ -139,7 +150,7 @@ module.exports = {
 	devServer: {
 		open: true,
 		host: 'localhost',
-		port: 8082,
+		port: 6006,
 		https: false,
 		hotOnly: false,
 		proxy: {
