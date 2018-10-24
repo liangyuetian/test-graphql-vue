@@ -22,7 +22,7 @@ const apiClient = new ApolloClient({
 		// 你需要在这里使用绝对路径
 		uri: './apollo',
 		credentials: 'same-origin'
-		/* 这个属性的意思是在同源的情况下携带cookie,因为vue-apollo本身发送的是一个fetch请求，所以在发送请求时不会自动携带cookie，所以我们需要加上此属性 */
+		/* 这个属性的意思是在同源的情况下携带cookie,因为 vue-apollo 本身发送的是一个fetch请求，所以在发送请求时不会自动携带cookie，所以我们需要加上此属性 */
 	}),
 	cache: new InMemoryCache(),
 	connectToDevTools: true

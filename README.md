@@ -56,5 +56,35 @@ new Vue({
 
 #### 接口肯定不止一个，那个需要创建多个客户端
 ```js
-
+const apiClient = new ApolloClient({
+	link: new HttpLink({
+		// 你需要在这里使用绝对路径
+		uri: './apollo',
+		credentials: 'same-origin'
+		/* 这个属性的意思是在同源的情况下携带cookie,因为 vue-apollo 本身发送的是一个fetch请求，所以在发送请求时不会自动携带cookie，所以我们需要加上此属性 */
+	}),
+	cache: new InMemoryCache(),
+	connectToDevTools: true
+});
+const apolloProvider = new VueApollo({
+	defaultClient: apolloClient,
+	defaultOptions: {
+		// 将应用于组件中的所有查询的 apollo 选项
+		$query: {
+			loadingKey: 'loading',
+			fetchPolicy: 'cache-and-network'
+		}
+	},
+	// { [key: string]: ApolloClient<{}> }
+	clients: { // 此处是多个客户端
+		api: apiClient //需要添加请求头
+		// base: baseClient   //不需要添加请求头
+	}
+});
 ```
+
+### 在lang="ts"下引入.gql文件
+> 解决方法1：删除lang="ts",不适用ts装饰器
+> 解决方法2：在引入文件前添加ts忽略检查 // @ts-ignore
+
+
